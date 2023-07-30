@@ -1,0 +1,95 @@
+tst_rast: tst_rast.o raster.o rast_asm.o fonts.o splash.o sprites.o model.o plyrsm.o events.o render.o anims.o
+	cc68x -g tst_rast.o raster.o rast_asm.o fonts.o splash.o sprites.o model.o plyrsm.o events.o render.o anims.o -o tst_rast
+
+tst_model: tst_model.o raster.o rast_asm.o fonts.o splash.o sprites.o model.o plyrsm.o events.o render.o anims.o
+	cc68x -g tst_model.o raster.o rast_asm.o fonts.o splash.o sprites.o model.o plyrsm.o events.o render.o anims.o -o tst_model
+
+tst_render: tst_render.o raster.o rast_asm.o fonts.o splash.o sprites.o model.o plyrsm.o events.o render.o anims.o
+	cc68x -g tst_render.o raster.o rast_asm.o fonts.o splash.o sprites.o model.o plyrsm.o events.o render.o anims.o -o tst_render
+
+tst_game: tst_game.o raster.o rast_asm.o fonts.o splash.o sprites.o model.o oppsm.o plyrsm.o events.o render.o anims.o game.o isr.o israsm.o video.o ikbd.o vbl.o
+	cc68x -g tst_game.o raster.o rast_asm.o fonts.o splash.o sprites.o model.o oppsm.o plyrsm.o events.o render.o anims.o game.o isr.o israsm.o video.o ikbd.o vbl.o -o tst_game
+
+afro: raster.o rast_asm.o effects.o eSplash.o music.o psg.o fonts.o splash.o sprites.o model.o oppsm.o plyrsm.o events.o render.o anims.o game.o isr.o israsm.o video.o ikbd.o vbl.o
+	cc68x -g raster.o rast_asm.o eSplash.o effects.o music.o psg.o fonts.o splash.o sprites.o model.o oppsm.o plyrsm.o events.o render.o anims.o game.o isr.o israsm.o video.o ikbd.o vbl.o -o afro.tos -f
+
+tst_rast.o: tst_rast.c raster.h fonts.h render.h
+	cc68x -g -c tst_rast.c 
+
+tst_model.o: tst_model.c raster.h fonts.h model.h events.h plyrsm.h types.h
+	cc68x -g -c tst_model.c
+
+tst_render.o: tst_render.c anims.h events.h fonts.h game.h model.h plyrsm.h raster.h render.h types.h splash.h sprites.h
+	cc68x -g -c tst_render.c 
+
+tst_game.o: tst_game.c anims.h events.h fonts.h game.h model.h oppsm.h plyrsm.h raster.h render.h types.h splash.h sprites.h isr.h ikbd.h vbl.h
+	cc68x -g -c tst_game.c 
+
+anims.o: anims.c anims.h
+	cc68x -g -c anims.c 
+
+effects.o: effects.c effects.h
+	cc68x -g -c effects.c
+
+events.o: events.c events.h 
+	cc68x -g -c events.c 
+
+fonts.o: fonts.c fonts.h
+	cc68x -g -c fonts.c 
+
+game.o: game.c game.h raster.h
+	cc68x -g -c game.c 
+
+model.o: model.c model.h
+	cc68x -g -c model.c 
+
+music.o: music.c music.h keys.h
+	cc68x -g -c music.c
+
+ikbd.o: ikbd.c ikbd.h
+	cc68x -g -c ikbd.c
+
+vbl.o: vbl.c vbl.h
+	cc68x -g -c vbl.c
+
+oppsm.o: oppsm.c oppsm.h
+	cc68x -g -c oppsm.c
+
+plyrsm.o: plyrsm.c plyrsm.h	
+	cc68x -g -c plyrsm.c 
+
+psg.o: psg.c psg.h
+	cc68x -g -c psg.c
+
+isr.o: isr.c isr.h 
+	cc68x -g -c isr.c
+
+raster.o: raster.c raster.h
+	cc68x -g -c raster.c 
+
+render.o: render.c render.h
+	cc68x -g -c render.c 
+
+splash.o: splash.c splash.h
+	cc68x -g -c splash.c 
+
+eSplash.o: eSplash.c eSplash.h
+	cc68x -g -c eSplash.c
+
+sprites.o: sprites.c sprites.h
+	cc68x -g -c sprites.c 
+
+israsm.o: israsm.s
+	gen -D -L2 israsm.s
+
+video.o: video.s
+	gen -D -L2 video.s
+
+rast_asm.o: rast_asm.s
+	gen -D -L2 rast_asm.s 
+
+clean:
+	$(RM) *.o *.tos
+
+all: clean afro
+
